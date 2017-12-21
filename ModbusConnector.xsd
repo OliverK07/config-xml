@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         targetNamespace="http://www.prismtech.com/conn/1/ModbusConnector"
+         xmlns:conn="http://www.prismtech.com/conn/1/ModbusConnector"
+         xmlns:conn-metamodel="http://www.prismtech.com/conn/1/MetaModel"
+         xmlns:vec-ui="http://www.prismtech.com/vec-ui/1/appinfo"
+         elementFormDefault="qualified">
+
+   <xs:element name="ModbusConnector">
+      <xs:complexType>
+         <xs:sequence>
+
+            <xs:element name="connection">
+               <xs:complexType>
+                  <xs:sequence>
+                     <xs:choice>
+                        <xs:element name="rtu">
+
+                           <xs:complexType>
+                              <xs:sequence>
+
+                                 <xs:element name="device" type="xs:string">
+                                    <xs:annotation>
+                                       <xs:documentation>
+                                       Defines the modbus serial port name.
+                                       </xs:documentation>
+                                    </xs:annotation>
+                                 </xs:element>
+
+                                 <xs:element name="baud" type="xs:integer">
+                                    <xs:annotation>
+                                       <xs:documentation>
+                                       Defines the baud rate.
+                                       </xs:documentation>
+                                    </xs:annotation>
+                                 </xs:element>
+
+                                 <xs:element name="parity">
+                                    <xs:annotation>
+                                       <xs:documentation>
+                                       Defines the parity argument.
+                                       </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                       <xs:restriction base="xs:string">
+                                          <xs:enumeration value="NONE"></xs:enumeration>
+                                          <xs:enumeration value="EVEN"></xs:enumeration>
+                                          <xs:enumeration value="ODD"></xs:enumeration>
+                                       </xs:restriction>
+                                    </xs:simpleType>
+                                 </xs:element>
+
+                                 <xs:element name="data_bit">
+                                    <xs:annotation>
+                                       <xs:documentation>
+                                       Defines the number of data bits.
+                                       </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                       <xs:restriction base="xs:int">
+                                          <xs:enumeration value="5"></xs:enumeration>
+                                          <xs:enumeration value="6"></xs:enumeration>
+                                          <xs:enumeration value="7"></xs:enumeration>
+                                          <xs:enumeration value="8"></xs:enumeration>
+                                       </xs:restriction>
+                                    </xs:simpleType>
+                                 </xs:element>
+
+                                 <xs:element name="stop_bit">
+                                    <xs:annotation>
+                                       <xs:documentation>
+                                       Defines the number of stop bits.
+                                       </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                    <xs:restriction base="xs:int">
+                                          <xs:enumeration value="1"></xs:enumeration>
+                                          <xs:enumeration value="2"></xs:enumeration>
+                                       </xs:restriction>
+                                    </xs:simpleType>
+                                 </xs:element>
+
+                                 <xs:element name="serial_mode" minOccurs="0">
+                                    <xs:annotation>
+                                       <xs:documentation>
+                                       Defines the type of serial communication to use.
+                                       </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                       <xs:restriction base="xs:string">
+                                          <xs:enumeration value="RS232"></xs:enumeration>
+                                          <xs:enumeration value="RS485"></xs:enumeration>
+                                       </xs:restriction>
+                                    </xs:simpleType>
+                                 </xs:element>
+
+                                 <xs:element name="slave">
+                                    <xs:annotation>
+                                       <xs:documentation>
+                                       Defines the Modbus slave number.
+                                       </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                       <xs:restriction base="xs:int">
+                                          <xs:minInclusive value="1"/>
+                                          <xs:maxInclusive value="247"/>
+                                       </xs:restriction>
+                                    </xs:simpleType>
+                                 </xs:element>
+
+                              </xs:sequence>
+                           </xs:complexType>
+                        </xs:element>
+
+                        <xs:element name="tcp">
+                           <xs:complexType>
+                              <xs:sequence>
+
+                                 <xs:element name="ip">
+                                    <xs:annotation>
+                                       <xs:documentation>
+                                       Defines the IP address.
+                                       </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                       <xs:restriction base="xs:string">
+                                          <xs:pattern value="((1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]).){3}(1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])"></xs:pattern>
+                                       </xs:restriction>
+                                    </xs:simpleType>
+                                 </xs:element>
+
+                                 <xs:element name="port">
+                                    <xs:annotation>
+                                       <xs:documentation>
+                                       Defines the port.
+                                       </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                       <xs:restriction base="xs:int">
+                                          <xs:minInclusive value="0"/>
+                                          <xs:maxInclusive value="65535"/>
+                                       </xs:restriction>
+                                    </xs:simpleType>
+                                 </xs:element>
+
+                                 <xs:element name="slave" minOccurs="0">
+                                    <xs:annotation>
+                                       <xs:documentation>
+                                       Defines the Modbus slave number.
+                                       </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                       <xs:restriction base="xs:int">
+                                          <xs:minInclusive value="1"/>
+                                          <xs:maxInclusive value="247"/>
+                                       </xs:restriction>
+                                    </xs:simpleType>
+                                 </xs:element>
+
+                              </xs:sequence>
+                           </xs:complexType>
+                        </xs:element>
+
+                        <xs:element name="tcp_pi">
+                           <xs:complexType>
+                              <xs:sequence>
+                                 <xs:element name="node" type="xs:string">
+                                    <xs:annotation>
+                                       <xs:documentation>
+                                       Defines the Modbus host name or IP.
+                                       </xs:documentation>
+                                    </xs:annotation>
+                                 </xs:element>
+
+                                 <xs:element name="service" type="xs:string">
+                                    <xs:annotation>
+                                       <xs:documentation>
+                                       Defines the Modbus service name or port.
+                                       </xs:documentation>
+                                    </xs:annotation>
+                                 </xs:element>
+
+                                 <xs:element name="slave" minOccurs="0">
+                                    <xs:annotation>
+                                       <xs:documentation>
+                                       Defines the Modbus slave number.
+                                       </xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                       <xs:restriction base="xs:int">
+                                          <xs:minInclusive value="1"/>
+                                          <xs:maxInclusive value="247"/>
+                                       </xs:restriction>
+                                    </xs:simpleType>
+                                 </xs:element>
+
+                              </xs:sequence>
+                           </xs:complexType>
+                        </xs:element>
+
+                     </xs:choice>
+
+                  </xs:sequence>
+               </xs:complexType>
+            </xs:element>
+
+            <xs:element name="instance" maxOccurs="unbounded" minOccurs="0" conn-metamodel:role="MetaModelAware">
+              <xs:annotation>
+                 <xs:appinfo>
+                    <vec-ui:iterable-identifier>identifier</vec-ui:iterable-identifier>
+                 </xs:appinfo>
+              </xs:annotation>
+
+               <xs:complexType>
+                  <xs:sequence>
+
+                     <xs:element name="identifier" type="xs:string">
+                        <xs:annotation>
+                           <xs:documentation>
+                           Defines the name of instance.
+                           </xs:documentation>
+                        </xs:annotation>
+                     </xs:element>
+
+                     <xs:element name="entity" type="xs:string" conn-metamodel:role="EntityName">
+                        <xs:annotation>
+                          <xs:appinfo>
+                             <vec-ui:entity-identifier>identifier</vec-ui:entity-identifier>
+                          </xs:appinfo>
+                           <xs:documentation>
+                           Defines the entity type.
+                           </xs:documentation>
+                        </xs:annotation>
+                     </xs:element>
+
+                     <xs:element name="property" maxOccurs="unbounded" conn-metamodel:role="Property">
+                       <xs:annotation>
+                          <xs:appinfo>
+                             <vec-ui:iterable-identifier>name</vec-ui:iterable-identifier>
+                          </xs:appinfo>
+                       </xs:annotation>
+
+                        <xs:complexType>
+                           <xs:sequence>
+
+                              <xs:element name="name" type="xs:string" conn-metamodel:role="PropertyName">
+                                 <xs:annotation>
+                                    <xs:documentation>
+                                    Defines property name.
+                                    </xs:documentation>
+                                 </xs:annotation>
+                              </xs:element>
+
+                              <xs:element name="cardinality" type="xs:positiveInteger" minOccurs="0">
+                                 <xs:annotation>
+                                    <xs:documentation>
+                                    Specifies how many items are to be read or written.
+                                    </xs:documentation>
+                                 </xs:annotation>
+                              </xs:element>
+
+                              <xs:element name="modbus">
+                                 <xs:complexType>
+                                    <xs:sequence>
+
+                                       <xs:element name="readFunction" minOccurs="0">
+                                          <xs:annotation>
+                                             <xs:documentation>
+                                             Specifies read function, can be 'NO_READ', 'READ_BITS', 'READ_INPUT_BITS', 'READ_REGISTERS' or 'READ_INPUT_REGISTERS'.
+                                             </xs:documentation>
+                                          </xs:annotation>
+                                          <xs:simpleType>
+                                             <xs:restriction base="xs:string">
+                                                <xs:enumeration value="NO_READ"></xs:enumeration>
+                                                <xs:enumeration value="READ_BITS"></xs:enumeration>
+                                                <xs:enumeration value="READ_INPUT_BITS"></xs:enumeration>
+                                                <xs:enumeration value="READ_REGISTERS"></xs:enumeration>
+                                                <xs:enumeration value="READ_INPUT_REGISTERS"></xs:enumeration>
+                                             </xs:restriction>
+                                          </xs:simpleType>
+                                       </xs:element>
+
+                                       <xs:element name="writeFunction" minOccurs="0">
+                                          <xs:annotation>
+                                             <xs:documentation>
+                                             Specifies write function, can be 'NO_WRITE', 'WRITE_BIT', 'WRITE_BITS', 'WRITE_REGISTER' or 'WRITE_REGISTERS'.
+                                             </xs:documentation>
+                                          </xs:annotation>
+                                          <xs:simpleType>
+                                             <xs:restriction base="xs:string">
+                                                <xs:enumeration value="NO_WRITE"></xs:enumeration>
+                                                <xs:enumeration value="WRITE_BIT"></xs:enumeration>
+                                                <xs:enumeration value="WRITE_BITS"></xs:enumeration>
+                                                <xs:enumeration value="WRITE_REGISTER"></xs:enumeration>
+                                                <xs:enumeration value="WRITE_REGISTERS"></xs:enumeration>
+                                             </xs:restriction>
+                                          </xs:simpleType>
+                                       </xs:element>
+
+                                       <xs:element name="dataType">
+                                          <xs:annotation>
+                                             <xs:documentation>
+                                             Specifies data type, can be 'UINT8', 'UINT16', 'UINT32', 'INT16', 'INT16', 'INT32' or 'FLOAT32'.
+                                             </xs:documentation>
+                                          </xs:annotation>
+                                          <xs:simpleType>
+                                             <xs:restriction base="xs:string">
+                                                <xs:enumeration value="UINT8"></xs:enumeration>
+                                                <xs:enumeration value="UINT16"></xs:enumeration>
+                                                <xs:enumeration value="UINT32"></xs:enumeration>
+                                                <xs:enumeration value="INT16"></xs:enumeration>
+                                                <xs:enumeration value="INT32"></xs:enumeration>
+                                                <xs:enumeration value="FLOAT32"></xs:enumeration>
+                                             </xs:restriction>
+                                          </xs:simpleType>
+                                       </xs:element>
+
+                                       <xs:element name="dataSwapType" minOccurs="0">
+                                          <xs:annotation>
+                                             <xs:documentation>
+                                             Specifies data type, can be 'ORIGINAL', 'SWAP_BYTE', 'SWAP_WORD' or 'SWAP_BYTE_WORD'.
+                                             </xs:documentation>
+                                          </xs:annotation>
+                                          <xs:simpleType>
+                                             <xs:restriction base="xs:string">
+                                                <xs:enumeration value="ORIGINAL"></xs:enumeration>
+                                                <xs:enumeration value="SWAP_BYTE"></xs:enumeration>
+                                                <xs:enumeration value="SWAP_WORD"></xs:enumeration>
+                                                <xs:enumeration value="SWAP_BYTE_WORD"></xs:enumeration>
+                                             </xs:restriction>
+                                          </xs:simpleType>
+                                       </xs:element>
+
+                                       <xs:element name="startAddress">
+                                          <xs:annotation>
+                                             <xs:documentation>
+                                             Address that the property will start at.
+                                             </xs:documentation>
+                                          </xs:annotation>
+                                          <xs:simpleType>
+                                             <xs:restriction base="xs:int">
+                                                <xs:minInclusive value="0"/>
+                                                <xs:maxInclusive value="65535"/>
+                                             </xs:restriction>
+                                          </xs:simpleType>
+                                       </xs:element>
+
+                                       <xs:element name="pollRateNS" type="xs:nonNegativeInteger" minOccurs="0">
+                                          <xs:annotation>
+                                             <xs:documentation>
+                                             Polling rate in nanoseconds.
+                                             </xs:documentation>
+                                          </xs:annotation>
+                                       </xs:element>
+
+                                    </xs:sequence>
+                                 </xs:complexType>
+                              </xs:element>
+
+                           </xs:sequence>
+                        </xs:complexType>
+                     </xs:element>
+
+                  </xs:sequence>
+               </xs:complexType>
+            </xs:element>
+
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+</xs:schema>

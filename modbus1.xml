@@ -1,0 +1,45 @@
+<ModbusConnector xmlns="http://www.prismtech.com/conn/1/ModbusConnector">
+   <connection>
+      <tcp>
+         <ip>127.0.0.1</ip>
+         <port>5020</port>
+         <slave>1</slave>
+      </tcp>
+   </connection>
+   <instance>
+      <identifier>light1</identifier>
+      <entity>Light Control</entity>
+      <property>
+         <name>Dimmer</name>
+         <modbus>
+            <writeFunction>WRITE_REGISTERS</writeFunction>
+            <dataType>UINT16</dataType>
+            <startAddress>0</startAddress>
+            <pollRateNS>100000000</pollRateNS>
+         </modbus>
+      </property>
+      <property>
+         <name>On/Off</name>
+         <modbus>
+            <writeFunction>WRITE_BITS</writeFunction>
+            <dataType>UINT8</dataType>
+            <startAddress>0</startAddress>
+            <pollRateNS>100000000</pollRateNS>
+         </modbus>
+      </property>
+   </instance>
+   <instance>
+      <identifier>sensor1</identifier>
+      <entity>Illuminance</entity>
+      <property>
+         <name>Sensor Value</name>
+         <modbus>
+            <readFunction>READ_REGISTERS</readFunction>
+            <dataType>UINT16</dataType>
+            <startAddress>1</startAddress>
+            <pollRateNS>100000000</pollRateNS>
+         </modbus>
+      </property>
+   </instance>
+</ModbusConnector>
+
